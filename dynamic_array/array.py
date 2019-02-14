@@ -40,7 +40,7 @@ class DynamicArray:
         if index < 0 or index > self._size:
             raise IndexError("Index out of range")
 
-        self.resize()
+        self.__resize()
         for i in range(self._size, index, -1):
             self._items[i] = self._items[i - 1]
         self._items[index] = item
@@ -86,16 +86,13 @@ class DynamicArray:
         for i in range(index, self._size - 1):
             self._items[i] = self._items[i + 1]
         self._size -= 1
-        self.resize()
+        self.__resize()
 
     def remove(self, item):
         """
         Remove all items with given value
         Time complexity: O(n^2)
         """
-        if self._size == 0:
-            raise LookupError("Can not remove in empty array")
-
         i = 0
         while i < self._size:
             if self._items[i] == item:
@@ -113,7 +110,7 @@ class DynamicArray:
                 return i
         return -1
 
-    def resize(self):
+    def __resize(self):
         """
         When you reach capacity, resize to double the size
         When popping an item, if size is 1/4 of capacity, resize to half

@@ -16,18 +16,17 @@ class TestDynamicArray(unittest.TestCase):
 
         self.assertEqual(array.capacity(), 16)
 
-        array.push(0)
+        for i in range(16):
+            array.push(i)
         self.assertEqual(array.capacity(), 16)
 
-        array.push(1)
-        self.assertEqual(array.capacity(), 8)
+        array.push(16)
+        self.assertEqual(array.capacity(), 32)
 
-        array.push(2)
-        self.assertEqual(array.capacity(), 4)
+        for i in range(10):
+            array.pop()
+        self.assertEqual(array.capacity(), 16)
 
-        array.push(3)
-        array.push(4)
-        self.assertEqual(array.capacity(), 8)
 
     def test_is_empty(self):
         array = DynamicArray()
@@ -35,7 +34,6 @@ class TestDynamicArray(unittest.TestCase):
         self.assertTrue(array.is_empty())
 
         array.push(1)
-        self.assertEqual(array.at(0), 1)
         self.assertFalse(array.is_empty())
 
     def test_push(self):
@@ -92,20 +90,12 @@ class TestDynamicArray(unittest.TestCase):
         self.assertTrue(
             "Can not pop in empty array" in str(context.exception))
 
-        array.push(1)
-        self.assertEqual(array.at(0), 1)
-
-        pop = array.pop()
-        self.assertEqual(array.size(), 0)
-        self.assertEqual(pop, 1)
-
         array.push(2)
         array.push(3)
         array.push(4)
 
         pop_2 = array.pop()
         self.assertEqual(pop_2, 4)
-        self.assertEqual(array.size(), 2)
 
     def test_at(self):
         array = DynamicArray()
@@ -131,17 +121,20 @@ class TestDynamicArray(unittest.TestCase):
         array.push(1)
         array.push(2)
         array.push(3)
-        array.delete(1)
-        self.assertEqual(array.size(), 2)
-        self.assertEqual(array.at(0), 1)
+        array.push(4)
+        array.delete(0)
+        self.assertEqual(array.size(), 3)
+        self.assertEqual(array.at(0), 2)
         self.assertEqual(array.at(1), 3)
+        self.assertEqual(array.at(2), 4)
+
+        array.delete(2)
+        self.assertEqual(array.at(0), 2)
+        self.assertEqual(array.at(1), 3)
+
 
     def test_remove(self):
         array = DynamicArray()
-
-        with self.assertRaises(LookupError) as context:
-            array.remove(1)
-        self.assertTrue("Can not remove in empty array" in str(context.exception))
 
         array.push(1)
         array.push(2)
@@ -169,30 +162,6 @@ class TestDynamicArray(unittest.TestCase):
         array.push(4)
         self.assertEqual(array.find(2), 1)
         self.assertEqual(array.find(5), -1)
-
-    def test_resize(self):
-        array = DynamicArray()
-
-        array.push(1)
-        self.assertEqual(array.size(), 1)
-        self.assertEqual(array.capacity(), 16)
-
-        array.resize()
-        self.assertEqual(array.size(), 1)
-        self.assertEqual(array.capacity(), 8)
-
-        array.resize()
-        self.assertEqual(array.size(), 1)
-        self.assertEqual(array.capacity(), 4)
-
-        array.resize()
-        self.assertEqual(array.size(), 1)
-        self.assertEqual(array.capacity(), 2)
-
-        array.push(2)
-        array.push(3)
-        self.assertEqual(array.size(), 3)
-        self.assertEqual(array.capacity(), 4)
 
 
 if __name__ == '__main__':
