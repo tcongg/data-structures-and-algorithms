@@ -59,7 +59,7 @@ class DynamicArray:
         Time complexity: O(1)
         """
         if self._size == 0:
-            raise LookupError("There is no element to delete")
+            raise LookupError("Can not pop in empty array")
 
         pop_value = self._items[self._size - 1]
         self.delete(self._size - 1)
@@ -93,6 +93,9 @@ class DynamicArray:
         Remove all items with given value
         Time complexity: O(n^2)
         """
+        if self._size == 0:
+            raise LookupError("Can not remove in empty array")
+
         i = 0
         while i < self._size:
             if self._items[i] == item:
