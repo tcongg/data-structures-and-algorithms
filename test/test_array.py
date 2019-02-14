@@ -20,13 +20,20 @@ class TestDynamicArray(unittest.TestCase):
             array.push(i)
         self.assertEqual(array.capacity(), 16)
 
-        array.push(16)
+        for i in range(32):
+            array.push(i)
+        self.assertEqual(array.capacity(), 64)
+
+        for i in range(32):
+            array.pop()
         self.assertEqual(array.capacity(), 32)
 
-        for i in range(10):
+        for i in range(8):
             array.pop()
         self.assertEqual(array.capacity(), 16)
 
+        array.pop()
+        self.assertEqual(array.capacity(), 16)
 
     def test_is_empty(self):
         array = DynamicArray()

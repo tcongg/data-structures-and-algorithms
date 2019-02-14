@@ -118,8 +118,11 @@ class DynamicArray:
         """
         if self._size == self._capacity:
             new_capacity = self._capacity * 2
-        elif self._size > 0 and self._size <= self._capacity / 4:
-            new_capacity = self._capacity // 2
+        elif self._size > 0 and self._size <= self._capacity / 4 :
+            if int(self._capacity / 16) > 1:
+                new_capacity = int(self._capacity / 2)
+            else:
+                return
         else:
             return
 
