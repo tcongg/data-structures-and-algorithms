@@ -56,7 +56,7 @@ class DynamicArray:
     def pop(self):
         """
         Remove last item and return its value
-        Time complexity: O(n)
+        Time complexity: O(1)
         """
         if self._size == 0:
             raise LookupError("There is no element to delete")
