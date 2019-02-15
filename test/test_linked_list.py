@@ -26,8 +26,6 @@ class TestLinkedList(TestCase):
             linked_list.value_at(1)
         self.assertTrue("Index out of range" in str(context.exception))
 
-        self.assertEqual(linked_list.size(), 0)
-
         linked_list.push_back(1)
         linked_list.push_back(2)
         linked_list.push_back(3)
@@ -59,8 +57,6 @@ class TestLinkedList(TestCase):
 
     def test_push_back(self):
         linked_list = LinkedList()
-
-        self.assertEqual(linked_list.size(), 0)
 
         linked_list.push_back(1)
         linked_list.push_back(2)
@@ -189,4 +185,4 @@ class TestLinkedList(TestCase):
         linked_list.remove_value(1)
         self.assertEqual(linked_list.value_at(0), 2)
         self.assertEqual(linked_list.value_at(1), 3)
-        self.assertEqual(linked_list.value_at(2), 4)
+        self.assertEqual(linked_list.value_at(2), 4) 

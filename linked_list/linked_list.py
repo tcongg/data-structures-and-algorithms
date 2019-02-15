@@ -1,8 +1,8 @@
 class Node:
 
-    def __init__(self, data):
+    def __init__(self, data, next_node = None):
         self.data = data
-        self.next = None
+        self.next = next_node
 
 class LinkedList:
 
@@ -32,23 +32,19 @@ class LinkedList:
         if index >= self._size or index < 0:
             raise IndexError("Index out of range")
 
-        value = self._head
+        head = self._head
 
         for i in range(self._size):
             if i == index:
-                return value.data
-            value = value.next
-        
-        return value
+                return head.data
+            head = head.next
 
     def push_front(self, value):
         """
         Adds an item to the front of the list
         Time Complexity: O(1)
         """
-        head_value = self._head
-        self._head = Node(value)
-        self._head.next = head_value
+        self._head = Node(value, self._head)
         self._size += 1
 
     def pop_front(self):
@@ -91,10 +87,10 @@ class LinkedList:
             pop_value = self._head.data
             self._head = None
         else:
-            value = self._head
+            head = self._head
             for i in range(self._size - 2):
-                value = value.next
-            pop_value = value.next.data
+                head = head.next
+            pop_value = head.next.data
 
         self._size -= 1
         return pop_value
@@ -127,20 +123,14 @@ class LinkedList:
         if index < 0 or index > self._size:
             raise IndexError("Index out of range")
 
-        node_value = value
-
         if index == 0:
-            head_value = self._head
-            self._head = Node(value)
-            self._head.next = head_value
+            self._head = Node(value, self._head)
         else:
-            value = self._head
+            head = self._head
             for i in range(0, index - 1):
-                value = value.next
+                head = head.next
 
-            new_node = Node(node_value)
-            new_node.next = value.next
-            value.next = new_node
+            head.next = Node(value,head.next)
 
         self._size += 1
 
@@ -155,10 +145,10 @@ class LinkedList:
         if index == 0:
             self._head = self._head.next
         else:
-            value = self._head
+            head = self._head
             for i in range(0, index - 1):
-                value = value.next
-            value.next = value.next.next
+                head = head.next
+            head.next = head.next.next
 
         self._size -= 1
 
@@ -170,24 +160,21 @@ class LinkedList:
         if n < 0 or n >= self._size:
             raise IndexError("Index of value out of range")
 
-        value = self._head
-        for i in range(0, self._size - 1 - n):
-            value = value.next
-        return value.data
+        return self.value_at(self._size - n - 1)
 
     def reverse(self):
         """
         Reverse the list
         Time Complexity: O(n)
         """
-        value = self._head
+        head = self._head
         prev_node = None
 
         for i in range(self._size):
-            next_node = value.next
-            value.next = prev_node
-            prev_node = value
-            value = next_node
+            next_node = head.next
+            head.next = prev_node
+            prev_node = head
+            head = next_node
         self._head = prev_node
 
     def remove_value(self, value):
@@ -203,12 +190,12 @@ class LinkedList:
 
         if head_value is not None:
             if head_value.data == value:
-                self._head = head_value.next
+                self._head = self._head.next
         else:
             for i in range(self._size):
                 if head_value.data == value:
                     break
-                tmp = _head_value
+                tmp = head_value
                 head_value = head_value.next
 
             if head_value is None:
