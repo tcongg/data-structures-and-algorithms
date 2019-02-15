@@ -1,8 +1,8 @@
 class Node:
 
-    def __init__(self, data, next_node):
+    def __init__(self, data):
         self.data = data
-        self.next = next_node
+        self.next = None
 
 class LinkedList:
 
@@ -46,7 +46,9 @@ class LinkedList:
         Adds an item to the front of the list
         Time Complexity: O(1)
         """
-        self._head = Node(value, self._head)
+        head_value = self._head
+        self._head = Node(value)
+        self._head.next = head_value
         self._size += 1
 
     def pop_front(self):
@@ -68,12 +70,12 @@ class LinkedList:
         Time Complexity: O(n)
         """
         if self._head is None:
-            self._head = Node(value, None)
+            self._head = Node(value)
         else:
             last_node = self._head
             for i in range(self._size - 1):
                 last_node = last_node.next
-            last_node.next = Node(value, None)
+            last_node.next = Node(value)
 
         self._size += 1
 
@@ -128,13 +130,15 @@ class LinkedList:
         node_value = value
 
         if index == 0:
-            self._head = Node(node_value, self._head)
+            head_value = self._head
+            self._head = Node(value)
+            self._head.next = head_value
         else:
             value = self._head
             for i in range(0, index - 1):
                 value = value.next
 
-            new_node = Node(node_value, None)
+            new_node = Node(node_value)
             new_node.next = value.next
             value.next = new_node
 
