@@ -93,12 +93,15 @@ class DynamicArray:
         Remove all items with given value
         Time complexity: O(n^2)
         """
-        i = 0
-        while i < self._size:
-            if self._items[i] == item:
-                self.delete(i)
-                i -= 1
-            i += 1
+        moved_count = 0
+        
+        for i in self._items:
+            if i != item:
+                self._items[moved_count] = i
+                moved_count += 1
+
+        self._size = moved_count
+        self.__resize()
 
     def find(self, item):
         """

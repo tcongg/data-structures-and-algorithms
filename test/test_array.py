@@ -1,6 +1,7 @@
 import unittest
 from dynamic_array import DynamicArray
 
+
 class TestDynamicArray(unittest.TestCase):
 
     def test_size(self):
@@ -101,8 +102,8 @@ class TestDynamicArray(unittest.TestCase):
         array.push(3)
         array.push(4)
 
-        pop_2 = array.pop()
-        self.assertEqual(pop_2, 4)
+        pop = array.pop()
+        self.assertEqual(pop, 4)
 
     def test_at(self):
         array = DynamicArray()
@@ -139,7 +140,6 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual(array.at(0), 2)
         self.assertEqual(array.at(1), 3)
 
-
     def test_remove(self):
         array = DynamicArray()
 
@@ -149,7 +149,6 @@ class TestDynamicArray(unittest.TestCase):
         array.push(2)
         array.push(4)
         array.remove(2)
-        self.assertEqual(array.size(), 3)
         self.assertEqual(array.at(0), 1)
         self.assertEqual(array.at(1), 3)
         self.assertEqual(array.at(2), 4)
