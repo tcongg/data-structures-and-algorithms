@@ -91,7 +91,7 @@ class DynamicArray:
     def remove(self, item):
         """
         Remove all items with given value
-        Time complexity: O(n^2)
+        Time complexity: O(n)
         """
         moved_count = 0
         
