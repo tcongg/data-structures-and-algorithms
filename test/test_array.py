@@ -1,7 +1,6 @@
 import unittest
 from dynamic_array import DynamicArray
 
-
 class TestDynamicArray(unittest.TestCase):
 
     def test_size(self):
@@ -168,7 +167,6 @@ class TestDynamicArray(unittest.TestCase):
         array.push(4)
         self.assertEqual(array.find(2), 1)
         self.assertEqual(array.find(5), -1)
-
 
 if __name__ == '__main__':
     unittest.main()

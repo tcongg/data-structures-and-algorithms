@@ -1,4 +1,5 @@
 class DynamicArray:
+    
     def __init__(self):
         self._size = 0
         self._capacity = 16
@@ -94,7 +95,7 @@ class DynamicArray:
         Time complexity: O(n)
         """
         moved_count = 0
-        
+
         for i in self._items:
             if i != item:
                 self._items[moved_count] = i
@@ -121,7 +122,7 @@ class DynamicArray:
         """
         if self._size == self._capacity:
             new_capacity = self._capacity * 2
-        elif self._size > 0 and self._size <= self._capacity / 4 and self._capacity > 16 :
+        elif self._size > 0 and self._size <= self._capacity / 4 and self._capacity > 16:
             new_capacity = self._capacity // 2
         else:
             return
