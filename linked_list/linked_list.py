@@ -69,6 +69,7 @@ class LinkedList:
             self._head = Node(value)
         else:
             last_node = self._head
+
             for i in range(self._size - 1):
                 last_node = last_node.next
             last_node.next = Node(value)
@@ -88,6 +89,7 @@ class LinkedList:
             self._head = None
         else:
             moved_node = self._head
+
             for i in range(self._size - 2):
                 moved_node = moved_node.next
             pop_value = moved_node.next.data
@@ -127,7 +129,8 @@ class LinkedList:
             self._head = Node(value, self._head)
         else:
             moved_node = self._head
-            for i in range(0, index - 1):
+
+            for i in range(index - 1):
                 moved_node = moved_node.next
 
             moved_node.next = Node(value, moved_node.next)
@@ -147,7 +150,7 @@ class LinkedList:
         else:
             moved_node = self._head
 
-            for i in range(0, index - 1):
+            for i in range(index - 1):
                 moved_node = moved_node.next
             moved_node.next = moved_node.next.next
 
@@ -185,16 +188,20 @@ class LinkedList:
         """
         if self.is_empty():
             return
-
-        moved_node = self._head
-
-        if self._head == value:
-            self._head = self._head.next
-            self._size -= 1
         else:
-            while moved_node.next is not None:
-                if moved_node.next.data == value:
-                    moved_node.next = moved_node.next.next
-                    break
-                else:
-                    moved_node = moved_node.next              
+            moved_node = self._head
+
+            if self._head.data == value:
+                self._head = self._head.next
+            else:
+                while moved_node.next is not None:
+                    if moved_node.next.data == value:
+                        moved_node.next = moved_node.next.next
+                        break
+                    else:
+                        moved_node = moved_node.next
+
+                if moved_node.next is None:
+                    return   
+
+            self._size -= 1       
