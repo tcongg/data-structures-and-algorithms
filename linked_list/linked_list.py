@@ -188,20 +188,20 @@ class LinkedList:
         """
         if self.is_empty():
             return
+
+        if self._head.data == value:
+            self._head = self._head.next
         else:
             moved_node = self._head
 
-            if self._head.data == value:
-                self._head = self._head.next
-            else:
-                while moved_node.next is not None:
-                    if moved_node.next.data == value:
-                        moved_node.next = moved_node.next.next
-                        break
-                    else:
-                        moved_node = moved_node.next
+            while moved_node.next is not None:
+                if moved_node.next.data == value:
+                    moved_node.next = moved_node.next.next
+                    break
+                    
+                moved_node = moved_node.next
 
-                if moved_node.next is None:
-                    return   
+            if moved_node.next is None:
+                return   
 
-            self._size -= 1       
+        self._size -= 1       
