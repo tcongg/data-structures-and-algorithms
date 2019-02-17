@@ -32,12 +32,12 @@ class LinkedList:
         if index >= self._size or index < 0:
             raise IndexError("Index out of range")
 
-        head = self._head
+        moved_node = self._head
 
         for i in range(self._size):
             if i == index:
-                return head.data
-            head = head.next
+                return moved_node.data
+            moved_node = moved_node.next
 
     def push_front(self, value):
         """
@@ -87,10 +87,10 @@ class LinkedList:
             pop_value = self._head.data
             self._head = None
         else:
-            head = self._head
+            moved_node = self._head
             for i in range(self._size - 2):
-                head = head.next
-            pop_value = head.next.data
+                moved_node = moved_node.next
+            pop_value = moved_node.next.data
 
         self._size -= 1
         return pop_value
@@ -126,11 +126,11 @@ class LinkedList:
         if index == 0:
             self._head = Node(value, self._head)
         else:
-            head = self._head
+            moved_node = self._head
             for i in range(0, index - 1):
-                head = head.next
+                moved_node = moved_node.next
 
-            head.next = Node(value,head.next)
+            moved_node.next = Node(value, moved_node.next)
 
         self._size += 1
 
@@ -145,10 +145,11 @@ class LinkedList:
         if index == 0:
             self._head = self._head.next
         else:
-            head = self._head
+            moved_node = self._head
+
             for i in range(0, index - 1):
-                head = head.next
-            head.next = head.next.next
+                moved_node = moved_node.next
+            moved_node.next = moved_node.next.next
 
         self._size -= 1
 
@@ -167,14 +168,14 @@ class LinkedList:
         Reverse the list
         Time Complexity: O(n)
         """
-        head = self._head
+        temp_node = self._head
         prev_node = None
 
         for i in range(self._size):
-            next_node = head.next
-            head.next = prev_node
-            prev_node = head
-            head = next_node
+            next_node = temp_node.next
+            temp_node.next = prev_node
+            prev_node = temp_node
+            temp_node = next_node
         self._head = prev_node
 
     def remove_value(self, value):
@@ -185,22 +186,15 @@ class LinkedList:
         if self.is_empty():
             return
 
-        head_value = self._head
-        tmp = None
+        moved_node = self._head
 
-        if head_value is not None:
-            if head_value.data == value:
-                self._head = self._head.next
+        if self._head == value:
+            self._head = self._head.next
+            self._size -= 1
         else:
-            for i in range(self._size):
-                if head_value.data == value:
+            while moved_node.next is not None:
+                if moved_node.next.data == value:
+                    moved_node.next = moved_node.next.next
                     break
-                tmp = head_value
-                head_value = head_value.next
-
-            if head_value is None:
-                return
-
-            tmp.next = head_value.next
-
-        self._size -= 1
+                else:
+                    moved_node = moved_node.next              
