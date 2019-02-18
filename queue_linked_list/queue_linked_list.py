@@ -23,8 +23,7 @@ class Queue:
         Time Complexity: O(1)
         """
         if self._tail is None:
-            self._head = Node(value)
-            self._tail = self._head
+            self._tail = self._head = Node(value)
         else:
             self._tail.next = Node(value)
             self._tail = self._tail.next

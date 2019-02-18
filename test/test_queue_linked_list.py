@@ -15,14 +15,19 @@ class TestQueue(TestCase):
         linked_list = Queue()
 
         linked_list.enqueue(1)
-        linked_list.enqueue(2)
-        linked_list.enqueue(3)
-        linked_list.enqueue(4)
-
         self.assertEqual(linked_list.dequeue(), 1)
+
+        linked_list.enqueue(2)
+        linked_list.enqueue(1)
         self.assertEqual(linked_list.dequeue(), 2)
+        self.assertEqual(linked_list.dequeue(), 1)
+
+        linked_list.enqueue(3)
+        linked_list.enqueue(2)
+        linked_list.enqueue(1)
         self.assertEqual(linked_list.dequeue(), 3)
-        self.assertEqual(linked_list.dequeue(), 4)
+        self.assertEqual(linked_list.dequeue(), 2)
+        self.assertEqual(linked_list.dequeue(), 1)
 
     def test_dequeue(self):
         linked_list = Queue()
@@ -33,11 +38,16 @@ class TestQueue(TestCase):
         self.assertTrue("Dequeue in empty queue" in str(context.exception))
 
         linked_list.enqueue(1)
-        linked_list.enqueue(2)
-        linked_list.enqueue(3)
-        linked_list.enqueue(4)
-
         self.assertEqual(linked_list.dequeue(), 1)
+
+        linked_list.enqueue(2)
+        linked_list.enqueue(1)
         self.assertEqual(linked_list.dequeue(), 2)
+        self.assertEqual(linked_list.dequeue(), 1)
+
+        linked_list.enqueue(3)
+        linked_list.enqueue(2)
+        linked_list.enqueue(1)
         self.assertEqual(linked_list.dequeue(), 3)
-        self.assertEqual(linked_list.dequeue(), 4)
+        self.assertEqual(linked_list.dequeue(), 2)
+        self.assertEqual(linked_list.dequeue(), 1)
