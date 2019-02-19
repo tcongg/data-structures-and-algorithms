@@ -15,28 +15,11 @@ class TestQueue(TestCase):
         array = Queue(4)
 
         array.enqueue(1)
-        self.assertEqual(array.dequeue(), 1)
+        self.assertFalse(array.is_full())
 
         array.enqueue(2)
-        array.enqueue(1)
-        self.assertEqual(array.dequeue(), 2)
-        self.assertEqual(array.dequeue(), 1)
-
         array.enqueue(3)
-        array.enqueue(2)
-        array.enqueue(1)
-        self.assertEqual(array.dequeue(), 3)
-        self.assertEqual(array.dequeue(), 2)
-        self.assertEqual(array.dequeue(), 1)
-
-        array.enqueue(4)
-        array.enqueue(3)
-        array.enqueue(2)
-        array.enqueue(1)
-        self.assertEqual(array.dequeue(), 4)
-        self.assertEqual(array.dequeue(), 3)
-        self.assertEqual(array.dequeue(), 2)
-
+        self.assertTrue(array.is_full())
 
     def test_enqueue(self):
         array = Queue(5)
@@ -60,17 +43,7 @@ class TestQueue(TestCase):
         array.enqueue(3)
         array.enqueue(2)
         array.enqueue(1)
-        self.assertEqual(array.dequeue(), 4)
-        self.assertEqual(array.dequeue(), 3)
-        self.assertEqual(array.dequeue(), 2)
-        self.assertEqual(array.dequeue(), 1)
-
-        array.enqueue(5)
-        array.enqueue(4)
-        array.enqueue(3)
-        array.enqueue(2)
-        array.enqueue(1)
-        self.assertEqual(array.dequeue(), 5)
+        array.enqueue(0)
         self.assertEqual(array.dequeue(), 4)
         self.assertEqual(array.dequeue(), 3)
         self.assertEqual(array.dequeue(), 2)
@@ -83,35 +56,10 @@ class TestQueue(TestCase):
 
         self.assertTrue("Queue is empty" in str(context.exception))
 
-        array.enqueue(1)
-        self.assertEqual(array.dequeue(), 1)
-
-        array.enqueue(2)
-        array.enqueue(1)
-        self.assertEqual(array.dequeue(), 2)
-        self.assertEqual(array.dequeue(), 1)
-
-        array.enqueue(3)
-        array.enqueue(2)
-        array.enqueue(1)
-        self.assertEqual(array.dequeue(), 3)
-        self.assertEqual(array.dequeue(), 2)
-        self.assertEqual(array.dequeue(), 1)
-
-        array.enqueue(4)
-        array.enqueue(3)
-        array.enqueue(2)
-        array.enqueue(1)
-        self.assertEqual(array.dequeue(), 4)
-        self.assertEqual(array.dequeue(), 3)
-        self.assertEqual(array.dequeue(), 2)
-        self.assertEqual(array.dequeue(), 1)
-
         array.enqueue(5)
         array.enqueue(4)
         array.enqueue(3)
         array.enqueue(2)
-        array.enqueue(1)
         self.assertEqual(array.dequeue(), 5)
         self.assertEqual(array.dequeue(), 4)
         self.assertEqual(array.dequeue(), 3)
