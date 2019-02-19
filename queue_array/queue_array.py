@@ -1,7 +1,7 @@
 class Queue:
 
     def __init__(self, capacity):
-        self._capacity = capacity
+        self._capacity = capacity + 1
         self._items = [None] * self._capacity
         self._head = 0
         self._tail = 0

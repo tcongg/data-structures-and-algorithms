@@ -19,10 +19,11 @@ class TestQueue(TestCase):
 
         array.enqueue(2)
         array.enqueue(3)
+        array.enqueue(4)
         self.assertTrue(array.is_full())
 
     def test_enqueue(self):
-        array = Queue(5)
+        array = Queue(4)
 
         array.enqueue(1)
         self.assertEqual(array.dequeue(), 1)
@@ -43,10 +44,25 @@ class TestQueue(TestCase):
         array.enqueue(3)
         array.enqueue(2)
         array.enqueue(1)
+        self.assertEqual(array.dequeue(), 4)
+        self.assertEqual(array.dequeue(), 3)
+        self.assertEqual(array.dequeue(), 2)
+        self.assertEqual(array.dequeue(), 1)
+
+        array.enqueue(4)
+        array.enqueue(3)
+        array.enqueue(2)
+        array.enqueue(1)
         array.enqueue(0)
         self.assertEqual(array.dequeue(), 4)
         self.assertEqual(array.dequeue(), 3)
         self.assertEqual(array.dequeue(), 2)
+        self.assertEqual(array.dequeue(), 1)
+
+        with self.assertRaises(LookupError) as context:
+            array.dequeue()
+
+        self.assertTrue("Queue is empty" in str(context.exception))
 
     def test_dequeue(self):
         array = Queue(5)
@@ -60,7 +76,9 @@ class TestQueue(TestCase):
         array.enqueue(4)
         array.enqueue(3)
         array.enqueue(2)
+        array.enqueue(1)
         self.assertEqual(array.dequeue(), 5)
         self.assertEqual(array.dequeue(), 4)
         self.assertEqual(array.dequeue(), 3)
         self.assertEqual(array.dequeue(), 2)
+        self.assertEqual(array.dequeue(), 1)
