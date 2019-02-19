@@ -3,6 +3,11 @@ from queue_array import Queue
 
 class TestQueue(TestCase):
 
+    def test_capacity(self):
+        array = Queue(4)
+
+        self.assertEqual(array.capacity(), 4)
+
     def test_is_empty(self):
         array = Queue(5)
 
