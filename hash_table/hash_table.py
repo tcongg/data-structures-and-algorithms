@@ -5,30 +5,12 @@ class Node:
         self.value = value
         self.next = None
 
-class LinkedList:
-
-    def __init__(self):
-        self._head = None
-        self._size = 0
-
-    def push_back(self, key, value):
-        if self._head is None:
-            self._head = Node(key, value)
-        else:
-            last_node = self._head
-
-            for i in range(self._size - 1):
-                last_node = last_node.next
-            last_node.next = Node(key, value)
-
-        self._size += 1  
-
 class HashTable:
 
     def __init__(self, capacity):
         self._size = 0
         self._capacity = capacity
-        self._table = [LinkedList()] * self._capacity
+        self._table = [None] * self._capacity
 
     def hash_function(self, key):
         hash = 5381
@@ -38,27 +20,39 @@ class HashTable:
         return hash % self._capacity
 
     def add(self, key, value):
-        table_index = self.hash_function(str(key))
-        new_node = Node(key, value)
+        index = self.hash_function(str(key))
 
-        self._table[table_index] = value
+        new_value = self._table[index]
+
+        if new_value is None:
+            self._table[index] = Node(key, value)
+            return
+
+        tmp = new_value
+        while new_value is not None:
+            tmp = new_value
+            new_value = new_value.next
+        tmp.next = Node(key, value)
 
     def get_key(self, key):
-        table_index = self.hash_function(str(key))
+        index = self.hash_function(str(key))
         return
 
     def is_exist(self, key):
-        table_index = self.hash_function(str(key))
-        return
+        index = self.hash_function(str(key))
+        new_value = self._table[index]
+
+        if new_value is None:
+            return False
+        
+        return True
 
     def remove(self, key):
-        table_index = self.hash_function(str(key))
+        index = self.hash_function(str(key))
         return
 
-    def display(self):
-        for i in self._table:
-            print(i)
-
 table = HashTable(7)
-table.add(111, 1999)
-table.display()
+table.add(8, 1999)
+table.add(8, 1900)
+print(table.is_exist(8))
+print(table.is_exist(1111))
