@@ -46,17 +46,13 @@ class HashTable:
         index = self.hash(str(key))
         node = self._table[index]
 
-        if node is None:
-            return False
-
-        if node.key == key:
-            return True
-
         while node:
-            node = node.next
             if node.key == key:
                 return True
+            
+            node = node.next
 
+        if not node:
             return False
 
     def remove(self, key):
