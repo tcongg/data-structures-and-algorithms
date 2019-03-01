@@ -40,7 +40,10 @@ class HashTable:
         while node:
             if node.key == key:
                 return node.value
+
             node = node.next
+
+        return None
 
     def exists(self, key):
         index = self.hash(str(key))
@@ -57,22 +60,15 @@ class HashTable:
 
     def remove(self, key):
         index = self.hash(str(key))
-        remove_value = self._table[index]
+        node = self._table[index]
 
-        if not remove_value:
-            return
-
-        if remove_value.key == key:
-            remove_value = remove_value.next
-        else:
-            move = remove_value
-
-            while move is not None:
-                if move.next.key == key:
-                    move.next = move.next.next
+        while node:
+            if node is None:
+                return None
+            elif node.key == key:
+                self._table[index] = node.next
+            else:
+                if node.next.key == key:
+                    node.next = node.next.next
                     break
-
-                move = move.next
-
-            if move.next is None:
-                return
+            node = node.next
