@@ -12,7 +12,7 @@ class HashTable:
         self._capacity = capacity
         self._table = [None] * self._capacity
 
-    def hash_function(self, key):
+    def hash(self, key):
         hash = 5381
         for x in key:
             hash = ((hash << 5) + hash) + ord(x)
@@ -20,51 +20,50 @@ class HashTable:
         return hash % self._capacity
 
     def add(self, key, value):
-        index = self.hash_function(str(key))
+        index = self.hash(str(key))
 
-        new_value = self._table[index]
+        node = self._table[index]
 
-        if new_value is None:
+        if node is None:
             self._table[index] = Node(key, value)
             return
 
-        tmp = new_value
-        while new_value is not None:
-            tmp = new_value
-            new_value = new_value.next
-        tmp.next = Node(key, value)
+        while node.next:
+            node = node.next
+        node.next = Node(key, value)
 
-    def get_key(self, key):
-        index = self.hash_function(str(key))
-        new_value = self._table[index]
 
-        while new_value is not None:
-            if new_value.key == key:
-                print(new_value.value)
-            new_value = new_value.next
+    def get(self, key):
+        index = self.hash(str(key))
+        node = self._table[index]
 
-    def is_exist(self, key):
-        index = self.hash_function(str(key))
-        new_value = self._table[index]
+        while node:
+            if node.key == key:
+                return node.value
+            node = node.next
 
-        if new_value is None:
+    def exists(self, key):
+        index = self.hash(str(key))
+        node = self._table[index]
+
+        if node is None:
             return False
 
-        if new_value.key == key:
+        if node.key == key:
             return True
 
-        while new_value is not None:
-            new_value = new_value.next
-            if new_value.key == key:
+        while node:
+            node = node.next
+            if node.key == key:
                 return True
 
             return False
 
     def remove(self, key):
-        index = self.hash_function(str(key))
+        index = self.hash(str(key))
         remove_value = self._table[index]
 
-        if remove_value is None:
+        if not remove_value:
             return
 
         if remove_value.key == key:
