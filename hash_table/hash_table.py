@@ -36,7 +36,12 @@ class HashTable:
 
     def get_key(self, key):
         index = self.hash_function(str(key))
-        return
+        new_value = self._table[index]
+
+        while new_value is not None:
+            if new_value.key == key:
+                print(new_value.value)
+            new_value = new_value.next
 
     def is_exist(self, key):
         index = self.hash_function(str(key))
@@ -44,15 +49,35 @@ class HashTable:
 
         if new_value is None:
             return False
-        
-        return True
+
+        if new_value.key == key:
+            return True
+
+        while new_value is not None:
+            new_value = new_value.next
+            if new_value.key == key:
+                return True
+
+            return False
 
     def remove(self, key):
         index = self.hash_function(str(key))
-        return
+        remove_value = self._table[index]
 
-table = HashTable(7)
-table.add(8, 1999)
-table.add(8, 1900)
-print(table.is_exist(8))
-print(table.is_exist(1111))
+        if remove_value is None:
+            return
+
+        if remove_value.key == key:
+            remove_value = remove_value.next
+        else:
+            move = remove_value
+
+            while move is not None:
+                if move.next.key == key:
+                    move.next = move.next.next
+                    break
+
+                move = move.next
+
+            if move.next is None:
+                return
