@@ -26,7 +26,7 @@ class HashTable:
             self._table[index] = Node(key, value)
             return
 
-        while node.next is not None:
+        while node.next:
             node = node.next
         node.next = Node(key, value)
 
@@ -58,14 +58,16 @@ class HashTable:
         index = self.__hash(str(key))
         node = self._table[index]
 
-        while node:
-            if node.key == key:
-                self._table[index] = node.next
-            else:
-                if node.key == key:
-                    node.next = node.next.next
-                    break
-            node = node.next
-
         if not node:
-            return None
+            return
+
+        if node.key == key:
+            self._table[index] = node.next
+            return
+
+        while node.next:
+            if node.next.key == key:
+                node.next = node.next.next
+                break
+            
+            node = node.next
