@@ -19,19 +19,20 @@ class HashTable:
         return hash % self._capacity
 
     def add(self, key, value):
-        node = self._table[self.__hash(str(key))]
+        index = self.__hash(str(key))
+        node = self._table[index]
 
         if not node:
-            self._table[self.__hash(str(key))] = Node(key, value)
+            self._table[index] = Node(key, value)
             return
 
         while node.next is not None:
             node = node.next
         node.next = Node(key, value)
 
-
     def get(self, key):
-        node = self._table[self.__hash(str(key))]
+        index = self.__hash(str(key))
+        node = self._table[index]
 
         while node:
             if node.key == key:
@@ -42,7 +43,8 @@ class HashTable:
         return None
 
     def exists(self, key):
-        node = self._table[self.__hash(str(key))]
+        index = self.__hash(str(key))
+        node = self._table[index]
 
         while node:
             if node.key == key:
@@ -53,15 +55,17 @@ class HashTable:
         return False
 
     def remove(self, key):
-        node = self._table[self.__hash(str(key))]
+        index = self.__hash(str(key))
+        node = self._table[index]
 
-        while node is not None:
-            if not node:
-                return None
-            elif node.key == key:
-                self._table[self.__hash(str(key))] = node.next
+        while node:
+            if node.key == key:
+                self._table[index] = node.next
             else:
                 if node.key == key:
                     node.next = node.next.next
                     break
             node = node.next
+
+        if not node:
+            return None
