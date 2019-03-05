@@ -21,11 +21,11 @@ class HashTable:
     def add(self, key, value):
         node = self._table[self.__hash(str(key))]
 
-        if node is None:
+        if not node:
             self._table[self.__hash(str(key))] = Node(key, value)
             return
 
-        while node.next:
+        while node.next is not None:
             node = node.next
         node.next = Node(key, value)
 
@@ -56,7 +56,7 @@ class HashTable:
         node = self._table[self.__hash(str(key))]
 
         while node is not None:
-            if node is None:
+            if not node:
                 return None
             elif node.key == key:
                 self._table[self.__hash(str(key))] = node.next
